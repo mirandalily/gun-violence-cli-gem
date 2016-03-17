@@ -22,7 +22,8 @@ class GunViolence::CLI
       if input.to_i > 0
         the_data = @data[input.to_i-1]
         puts "#{the_data.name}"
-        @choice_data = GunViolence::Data.data_from_choice(the_data.url)
+        choice_data = GunViolence::Data.data_from_choice(the_data.url)
+        puts "This is just the last 26 events, to see more visit www.gunviolencearchive.org"
       elsif input == "list"
         list_violence_categories
       elsif input == "exit"
