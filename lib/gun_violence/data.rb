@@ -18,18 +18,15 @@ class GunViolence::Data
   def self.data_from_choice(choice)
     doc = Nokogiri::HTML(open(choice))
     @occurances = []
-    doc.search("tbody tr").each do |x|
-      data = self.new
-      data.date = doc.css("td")[0].text
-      data.state = doc.css("td")[1].text
-      data.city = doc.css("td")[2].text
-      data.deaths = doc.css("td")[4].text
-      data.injured = doc.css("td")[5].text
-      data.source = doc.search(".links li.last a").attr("href").value
-      @occurances << data
+    doc.xpath("//tr").each do |x|
+      date = doc.css("td")[0].text
+      state = doc.css("td")[1].text
+      city = doc.css("td")[2].text
+      deaths = doc.css("td")[4].text
+      injured = doc.css("td")[5].text
+      source = doc.search(".links li.last a").attr("href").value
+      @occurances << {:date => date, :state => state, :city => city, :deaths => deaths, :injured => injured, :source => source}
     end
-    # @occurances.each.with_index(1) do |data, i|
-    #   puts " #{i} Date: #{data.date}, State: #{data.state}, City/County: #{data.city}, Deaths: #{data.deaths}, Injured: #{data.injured}, Source Link: #{data.source}"
-    # end
+    @occurances
   end
 end
