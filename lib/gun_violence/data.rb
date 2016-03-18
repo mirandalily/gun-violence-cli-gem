@@ -41,18 +41,20 @@ class GunViolence::Data
       if data.injured.class == String
         data.injured = data.injured.text
       end
-      data.source = x.xpath("td//a//@href")
+      data.source = x.xpath("td//ul//li[2]//a//@href")
       if data.source.class == String
         data.source = data.source.value
       end
       @occurances << data
     end
     @occurances.each.with_index(1) do |event, i|
-      puts "#{i}. Date: #{event.date}, Location: #{event.city} #{event.state}, Deaths: #{event.deaths}, Injured: #{event.injured}, Source: #{event.source}
+      puts "#{i}.     Date: #{event.date},
+        Location: #{event.city} #{event.state},
+        Deaths: #{event.deaths},
+        Injured: #{event.injured},
+        Source: #{event.source}
 
       "
     end
   end
 end
-
-#GunViolence::Data.data_from_choice("http://www.gunviolencearchive.org/children-killed")
